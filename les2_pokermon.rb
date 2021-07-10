@@ -12,4 +12,4 @@ puts "Введите количество покемонов"
 n = gets.chomp.to_i
 pok_list = Hash.new
 pokemon_input(n, pok_list)
-pok_list.each {|name, color| puts "У покемона #{name} цвет - #{color}" }
+pok_list.each {|name, color| puts "[{ name: '#{name}', color: '#{color}' }]" }
