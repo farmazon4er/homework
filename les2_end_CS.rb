@@ -1,6 +1,6 @@
 def cs_or_not(slovo, number)
   if slovo[slovo.size - 2 ,2] == "CS"
-  puts number ** slovo.size
+  puts 2 ** slovo.size
   else
   puts slovo.reverse
   end	
