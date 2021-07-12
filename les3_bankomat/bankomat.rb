@@ -5,6 +5,9 @@ def balance_input(currnet_path_balance, start_money)
     File.read(currnet_path_balance).to_f
   end
 end
+def balance_output(balan_output)
+  puts "Ваш баланс - #{balan_output.round(2)}"
+end
 
 current_path_balance = "data/balance.txt"
 CONST_START_MONEY = 100.0
@@ -14,20 +17,20 @@ W - снять средства
 B - вывести баланс
 Q - выход"
 balance = balance_input(current_path_balance, CONST_START_MONEY)
-puts balance
+balance_output(balance)
 
 loop do
   puts operation
   oper = gets.chomp.to_s.upcase
   case oper
   when "B"
-    puts "Ваш баланс - #{balance}"
+    balance_output(balance)
   when "D"
     puts "Введите сумму депозита"
     dep = gets.chomp.to_f
     if dep > 0
       balance = balance + dep
-      puts "Ваш баланс - #{balance}"
+      balance_output(balance)
     else
       puts "Вы ввели некоректную сумму"
     end
@@ -36,7 +39,7 @@ loop do
     cash = gets.chomp.to_f
     if (balance >= cash) && (cash > 0)
       balance = balance - cash
-      puts "Ваш баланс - #{balance}"
+      balance_output(balance)
     elsif (balance < cash) && (cash > 0)
       puts "На счету недостаточно средств"
     else
