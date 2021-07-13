@@ -18,7 +18,7 @@ Q - выход"
   end
 
   def self.deposit
-    puts "Введите сумму депозита"
+    puts "Введите сумму депозита, сумма должна быть больше ноля"
     dep = gets.chomp.to_f
     if dep > 0
       @balance = @balance + dep
@@ -29,7 +29,7 @@ Q - выход"
   end
 
   def self.withdraw
-    puts "Какую сумму хотите снять?"
+    puts "Введите сумму для снятия, сумма должна быть больше ноля"
     cash = gets.chomp.to_f
     if (@balance >= cash) && (cash > 0)
       @balance -= cash
