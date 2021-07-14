@@ -28,7 +28,7 @@ class PostsController
     extend Resource
 
   def initialize
-    @posts = []
+    @posts = ["Hello world", "Goob"]
   end
 
   def index
@@ -42,7 +42,7 @@ class PostsController
   def show
     puts 'Enter post ID'
     id = gets.chomp
-    if id[/^\d+$/] && @posts.size >= id.to_i
+    if id[/^\d+$/] && @posts.size > id.to_i
       puts "#{id}. #{@posts[id.to_i]}"
     elsif @posts.size.positive?
       puts "Incorrect ID, input 0-#{@posts.size - 1}"
@@ -56,14 +56,95 @@ class PostsController
     puts 'Enter a post'
     post = gets.chomp.to_s
     @posts << post
+    puts "#{@posts.size-1}. #{post}"
   end
 
   def update
-    puts 'update'
+    puts 'Enter post ID'
+    id = gets.chomp
+    if id[/^\d+$/] && @posts.size > id.to_i
+      puts "Enter new post"
+      @posts[id.to_i] = gets.chomp.to_s
+      self.index
+       elsif @posts.size.positive?
+      puts "Incorrect ID, input 0-#{@posts.size - 1}"
+    else
+      puts "No posts yet"
+    end
   end
 
   def destroy
-    puts 'destroy'
+    puts 'Enter post ID'
+    id = gets.chomp
+    if id[/^\d+$/] && @posts.size > id.to_i
+      @posts.delete_at(id.to_i)
+    elsif @posts.size.positive?
+      puts "Incorrect ID, input 0-#{@posts.size - 1}"
+    else
+      puts "No posts yet"
+    end
+  end
+end
+
+class CommentsController
+  extend Resource
+
+  def initialize
+    @comments = []
+  end
+
+  def index
+    if @comments.size > 0
+      (0..@comments.size-1).each {|i| puts "#{i}. #{@comments[i]}"}
+    else
+      puts "No posts yet"
+    end
+  end
+
+  def show
+    puts 'Enter post ID'
+    id = gets.chomp
+    if id[/^\d+$/] && @comments.size > id.to_i
+      puts "#{id}. #{@comments[id.to_i]}"
+    elsif @comments.size.positive?
+      puts "Incorrect ID, input 0-#{@comments.size - 1}"
+    else
+      puts "No posts yet"
+    end
+  end
+
+
+  def create
+    puts 'Enter a post'
+    post = gets.chomp.to_s
+    @comments << post
+    puts "#{@comments.size-1}. #{post}"
+  end
+
+  def update
+    puts 'Enter post ID'
+    id = gets.chomp
+    if id[/^\d+$/] && @comments.size > id.to_i
+      puts "Enter new post"
+      @comments[id.to_i] = gets.chomp.to_s
+      self.index
+    elsif @comments.size.positive?
+      puts "Incorrect ID, input 0-#{@comments.size - 1}"
+    else
+      puts "No posts yet"
+    end
+  end
+
+  def destroy
+    puts 'Enter post ID'
+    id = gets.chomp
+    if id[/^\d+$/] && @comments.size > id.to_i
+      @comments.delete_at(id.to_i)
+    elsif @comments.size > 0
+      puts "Incorrect ID, input 0-#{@comments.size - 1}"
+    else
+      puts "No posts yet"
+    end
   end
 end
 
@@ -74,12 +155,14 @@ class Router
 
   def init
     resources(PostsController, 'posts')
+    resources(CommentsController, 'comments')
 
     loop do
       print 'Choose resource you want to interact (1 - Posts, 2 - Comments, q - Exit): '
       choise = gets.chomp
 
       PostsController.connection(@routes['posts']) if choise == '1'
+      CommentsController.connection(@routes['comments']) if choise == '2'
       break if choise == 'q'
     end
 
