@@ -44,7 +44,7 @@ class PostsController
     id = gets.chomp
     if id[/^\d+$/] && @posts.size > id.to_i
       puts "#{id}. #{@posts[id.to_i]}"
-    elsif @posts.size.positive?
+    elsif @posts.size > 0
       puts "Incorrect ID, input 0-#{@posts.size - 1}"
     else
       puts "No posts yet"
@@ -66,7 +66,7 @@ class PostsController
       puts "Enter new post"
       @posts[id.to_i] = gets.chomp.to_s
       self.index
-       elsif @posts.size.positive?
+       elsif @posts.size > 0
       puts "Incorrect ID, input 0-#{@posts.size - 1}"
     else
       puts "No posts yet"
@@ -78,7 +78,7 @@ class PostsController
     id = gets.chomp
     if id[/^\d+$/] && @posts.size > id.to_i
       @posts.delete_at(id.to_i)
-    elsif @posts.size.positive?
+    elsif @posts.size > 0
       puts "Incorrect ID, input 0-#{@posts.size - 1}"
     else
       puts "No posts yet"
